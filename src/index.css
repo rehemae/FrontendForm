@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  transition: all 0.4s ease-in-out;
+  font-family: "Inter", sans-serif;
+}
+.container {
+  background-color: #fbcb24 !important;
+  height: 98.5vh;
+  margin: 10px;
+  padding-left: 4rem !important;
+  padding-right: 4rem !important;
+}
+.asteric {
+  color: red;
+  position: absolute;
+  top: 55%;
+  right: 0;
+  z-index: 2000;
+  padding-right: 10px;
+}
+
+label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #000000;
+}
