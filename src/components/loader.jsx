@@ -1,13 +1,8 @@
 import React from "react";
+import "./loader.scss";
 
 const Loader = () => {
-  return (
-    <div className="loading">
-      <div className="spinner-border text-primary" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
-  );
+  return <div className="loader" />;
 };
 
 export default Loader;

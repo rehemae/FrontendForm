@@ -12,7 +12,6 @@ const App = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setInputValues({
       ...inputValues,
       [name]: value,
@@ -44,7 +43,7 @@ const App = () => {
         setShowModal(true);
       })
       .catch((err) => {
-        alert(err);
+        alert(err.message);
       })
       .finally(() => {
         setLoading(false);
