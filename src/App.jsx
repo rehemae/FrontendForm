@@ -23,7 +23,8 @@ const App = () => {
     e.preventDefault();
 
     // update url
-    const url = "/";
+    const url = "https://rehema-backend.herokuapp.com/survey/";
+    
 
     setLoading(true);
     axios
