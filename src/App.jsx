@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import Loader from "./components/loader";
+// import Loader from "./components/loader";
 import ModalTemplate from "./components/modal/modal-template";
 import { gender } from "./helpers/constants";
 
@@ -22,29 +22,29 @@ const App = () => {
     e.preventDefault();
 
     // update url
-    const url = "https://rehema-backend.herokuapp.com/survey/";
+    const url = "http://127.0.0.1:8000/survey/";
     
-
+    //  console.log(name,age,feedback,satisfied,phone_number,gender);
     setLoading(true);
     axios
       .post(
-        url,
+        url ,
         {
           name: inputValues.name,
-          gender: inputValues.gender,
           age: inputValues.age,
-          phone_number: inputValues.phone_number,
-          satisfied: checked,
           feedback: inputValues.feedback,
+          satisfied: checked,
+          phone_number: inputValues.phone_number,
+          gender: inputValues.gender,
         },
-        {}
+        // {}
       )
       .then((res) => {
         setShowModal(true);
       })
-      .catch((err) => {
-        alert(err.message);
-      })
+      // .catch((err) => {
+      //   alert(err.message);
+      // })
       .finally(() => {
         setLoading(false);
       });
@@ -52,7 +52,7 @@ const App = () => {
 
   return (
     <div className="container">
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
 
       {showModal ? (
         <ModalTemplate handleClose={() => setShowModal(!showModal)} />
@@ -141,7 +141,7 @@ const App = () => {
                   id="satisfaction1"
                 />
                 <label className="form-check-label" htmlFor="satisfaction1">
-                  Yes
+                  Y
                 </label>
               </div>
               <div className="form-check">
@@ -153,7 +153,7 @@ const App = () => {
                   onChange={() => setChecked(false)}
                 />
                 <label className="form-check-label" htmlFor="satisfaction">
-                  No
+                  N
                 </label>
               </div>
             </div>
