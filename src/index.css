@@ -8,7 +8,7 @@ body {
 }
 .container {
   background-color: #fbcb24 !important;
-  height: 98.5vh;
+  height: 100%;
   margin: 10px;
   padding-left: 4rem !important;
   padding-right: 4rem !important;
