@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "./components/loader";
 import ModalTemplate from "./components/modal/modal-template";
 import { gender } from "./helpers/constants";
@@ -9,6 +9,7 @@ const App = () => {
   const [checked, setChecked] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [forms, setForms] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -18,12 +19,23 @@ const App = () => {
     });
   };
 
+  const fetchForms = () => {
+    const url = "https://form-rehema.herokuapp.com/form";
+    axios
+      .get(url)
+      .then((res) => {
+        setForms(res.data.data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // update url
-    const url = "https://rehema-backend.herokuapp.com/survey/";
-    
+    const url = "https://form-rehema.herokuapp.com/form";
 
     setLoading(true);
     axios
@@ -33,22 +45,29 @@ const App = () => {
           name: inputValues.name,
           gender: inputValues.gender,
           age: inputValues.age,
-          phone_number: inputValues.phone_number,
+          phone: inputValues.phone,
           satisfied: checked,
           feedback: inputValues.feedback,
         },
-        {}
+        {
+          withCredentials: false,
+        }
       )
       .then((res) => {
         setShowModal(true);
+        fetchForms();
       })
       .catch((err) => {
-        alert(err.message);
+        alert(err);
       })
       .finally(() => {
         setLoading(false);
       });
   };
+
+  useEffect(() => {
+    fetchForms();
+  }, []);
 
   return (
     <div className="container">
@@ -101,7 +120,7 @@ const App = () => {
             <div className="form-group position-relative">
               <label htmlFor="Age">Age</label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 name="age"
                 onChange={handleInputChange}
@@ -116,9 +135,9 @@ const App = () => {
             <div className="form-group position-relative">
               <label htmlFor="phone_number">Phone Number</label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
-                name="name"
+                name="phone"
                 onChange={handleInputChange}
                 autoComplete="off"
                 placeholder="Enter your phone number"
@@ -175,6 +194,33 @@ const App = () => {
             </button>
           </div>
         </form>
+      </div>
+
+      <div className="row">
+        <table className="table table-striped mt-5">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Age</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Phone </th>
+              <th scope="col">Feedback</th>
+              <th scope="col">Satisfied</th>
+            </tr>
+          </thead>
+          <tbody>
+            {forms?.map((form, index) => (
+              <tr key={index}>
+                <td>{form.name}</td>
+                <td>{form.age}</td>
+                <td>{form.gender}</td>
+                <td>{form.phone}</td>
+                <td>{form.feedback}</td>
+                <td>{form.satisfied ? "Yes" : "No"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
